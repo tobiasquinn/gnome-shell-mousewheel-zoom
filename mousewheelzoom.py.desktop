@@ -3,6 +3,7 @@
 Type=Application
 Exec=/usr/bin/mousewheelzoom.py
 Hidden=false
+OnlyShowIn=GNOME;
 X-GNOME-Autostart-enabled=true
 Name=Mouse Wheel Zoom
 Name=Mouse Wheel Zoom
