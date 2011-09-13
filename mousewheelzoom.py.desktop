@@ -1,0 +1,9 @@
+
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/mousewheelzoom.py
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=Mouse Wheel Zoom
+Name=Mouse Wheel Zoom
+Comment=Zoom using mouse wheel and Left-Alt key
