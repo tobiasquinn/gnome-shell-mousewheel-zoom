@@ -1,13 +1,13 @@
 # Author: Tobias Quinn <tobias@tobiasquinn.com>
 # Maintainer: Tobias Quinn <tobias@tobiasquinn.com>
 pkgname=gnome-shell-mousewheel-zoom-git
-pkgver=20110913
+pkgver=20110915
 pkgrel=1
 pkgdesc="Enable mousewheel zoom using left-alt key using gnome-shell"
 arch=('i686' 'x86_64')
 url="https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom"
 license=('GPL3')
-depends=('python2' 'dbus-python' 'python-xlib')
+depends=('python2' 'dbus-python' 'python-xlib' 'gnome-shell')
 makedepends=('git')
 conflicts=('gnome-shell-mousewheel-zoom-git')
 provides=('gnome-shell-mousewheel-zoom-git')
