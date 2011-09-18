@@ -66,10 +66,13 @@ def main():
 
     while 1:
         event = root.display.next_event()
-        if event.detail == X.Button4:
-            z.zoomIn()
-        elif event.detail == X.Button5:
-            z.zoomOut()
+        try:
+            if event.detail == X.Button4:
+                z.zoomIn()
+            elif event.detail == X.Button5:
+                z.zoomOut()
+        except AttributeError:
+            pass
 
 if __name__ == '__main__':
     main()
