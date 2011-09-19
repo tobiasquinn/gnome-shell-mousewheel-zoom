@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # gnome-shell-mousewheel-zoom
 
@@ -12,6 +12,7 @@ from Xlib.display import Display
 from Xlib import X
 
 buttons = [X.Button4, X.Button5]
+masks = [0, X.LockMask, X.Mod2Mask, X.LockMask | X.Mod2Mask]
 incr = 0.1
 
 class Zoomer:
@@ -54,18 +55,20 @@ def main():
     disp = Display()
     root = disp.screen().root
     # grab a buttons with a modifier
-    for button in buttons:
-        root.grab_button(button,
-                X.Mod1Mask,
-                root,
-                False,
-                X.GrabModeAsync,
-                X.GrabModeAsync,
-                X.NONE,
-                X.NONE)
+    for mask in masks:
+        for button in buttons:
+            root.grab_button(button,
+                    X.Mod1Mask | mask,
+                    root,
+                    False,
+                    X.GrabModeAsync,
+                    X.GrabModeAsync,
+                    X.NONE,
+                    X.NONE)
 
     while 1:
         event = root.display.next_event()
+        print(event.detail)
         try:
             if event.detail == X.Button4:
                 z.zoomIn()
