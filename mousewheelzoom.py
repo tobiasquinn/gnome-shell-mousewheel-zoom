@@ -68,7 +68,6 @@ def main():
 
     while 1:
         event = root.display.next_event()
-        print(event.detail)
         try:
             if event.detail == X.Button4:
                 z.zoomIn()
