@@ -20,7 +20,11 @@ class Zoomer:
         self._mag = session_bus.get_object(
                 'org.gnome.Magnifier',
                 '/org/gnome/Magnifier')
-        self._mag.getZoomRegions()
+        try:
+            self._mag.getZoomRegions()
+        except DBusException:
+            # kick zoom region again if dbus not ready
+            self._mag.getZoomRegions()
         self._zoom = session_bus.get_object(
                 'org.gnome.Magnifier',
                 '/org/gnome/Magnifier/ZoomRegion/zoomer0')
