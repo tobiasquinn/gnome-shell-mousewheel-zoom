@@ -2,7 +2,7 @@
 # Maintainer: Tobias Quinn <tobias@tobiasquinn.com>
 pkgname=gnome-shell-mousewheel-zoom-git
 pkgver=20110920
-pkgrel=1
+pkgrel=4
 pkgdesc="Enable mousewheel zoom using left-alt key using gnome-shell"
 arch=('i686' 'x86_64')
 url="https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom"
