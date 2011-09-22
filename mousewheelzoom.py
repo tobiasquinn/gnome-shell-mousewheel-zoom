@@ -6,6 +6,7 @@
 # GPLv3
 
 import dbus
+from dbus import DBusException
 session_bus = dbus.SessionBus()
 
 from Xlib.display import Display
