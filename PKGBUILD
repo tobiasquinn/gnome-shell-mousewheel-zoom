@@ -1,7 +1,7 @@
 # Author: Tobias Quinn <tobias@tobiasquinn.com>
 # Maintainer: Tobias Quinn <tobias@tobiasquinn.com>
 pkgname=gnome-shell-mousewheel-zoom-git
-pkgver=20110922
+pkgver=20110926
 pkgrel=1
 pkgdesc="Enable mousewheel zoom using left-alt key using gnome-shell"
 arch=('i686' 'x86_64')
@@ -28,7 +28,7 @@ build() {
 
   msg "GIT checkout done or server timeout"
   # Change to use python2
-  sed -i "s/usr\/bin\/env python/usr\/bin\/env python2/" ${srcdir}/$_gitname/mousewheelzoom.py
+  sed -i "s/usr\/bin\/env python$/usr\/bin\/env python2/" ${srcdir}/$_gitname/mousewheelzoom.py
 
   install -D -m755 ${srcdir}/$_gitname/mousewheelzoom.py "${pkgdir}/usr/bin/mousewheelzoom.py" || return 1
   install -D -m644 ${srcdir}/$_gitname/mousewheelzoom.py.desktop "${pkgdir}/etc/xdg/autostart/mousewheelzoom.py.desktop" || return 1
