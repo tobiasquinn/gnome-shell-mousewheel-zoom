@@ -1,5 +1,5 @@
 gnome-shell-mousewheel-zoom (0.5-1) unstable; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release
 
  -- Tobias Quinn <tobias@tobiasquinn.com>  Tue, 27 Sep 2011 13:50:41 +0100
