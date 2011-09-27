@@ -1,0 +1,16 @@
+Source: gnome-shell-mousewheel-zoom
+Section: gnome
+Priority: optional
+Maintainer: Tobias Quinn <tobias@tobiasquinn.com>
+Build-Depends: debhelper (>= 8.0.0), python-support, python
+Standards-Version: 3.9.2
+Homepage: https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom
+#Vcs-Git: git://git.debian.org/collab-maint/gnome-shell-mousewheel-zoom.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/gnome-shell-mousewheel-zoom.git;a=summary
+
+Package: gnome-shell-mousewheel-zoom
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-xlib, python-dbus, gnome-shell
+Description: Enables zooming of the gnome shell using alt and mousewheel
+ This uses python-xlib and python-dbus to allow the gnome shell to be zoomed
+ using the alt modifier and mouse scrollwheel
