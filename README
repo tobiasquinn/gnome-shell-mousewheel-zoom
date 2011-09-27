@@ -8,3 +8,7 @@ This uses python-xlib and python-dbus to allow the gnome shell to be zoomed
 like enhanced zoom desktop in compiz using the alt modifier and mouse scrollwheel
 
 There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mousewheel-zoom-git)
+
+A ppa for Ubuntu oneiric is available from:
+
+https://launchpad.net/~tobias-quinn/+archive/gsmz
