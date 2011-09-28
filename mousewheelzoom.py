@@ -18,28 +18,33 @@ incr = 0.1
 
 class Zoomer:
     def __init__(self):
-        self._mag = session_bus.get_object(
-                'org.gnome.Magnifier',
-                '/org/gnome/Magnifier')
-        try:
-            self._mag.getZoomRegions()
-        except DBusException:
-            # kick zoom region again if dbus not ready
-            self._mag.getZoomRegions()
-        self._zoom = session_bus.get_object(
-                'org.gnome.Magnifier',
-                '/org/gnome/Magnifier/ZoomRegion/zoomer0')
+        self._refreshDBUS()
         self._active = self._mag.isActive()
         cz = self._zoom.getMagFactor()
         self._currentZoom = [cz[0], cz[1]]
+
+    def _refreshDBUS(self):
+        self._mag = session_bus.get_object(
+                'org.gnome.Magnifier',
+                '/org/gnome/Magnifier')
+        self._mag.getZoomRegions()
+        self._zoom = session_bus.get_object(
+                'org.gnome.Magnifier',
+                '/org/gnome/Magnifier/ZoomRegion/zoomer0')
 
     def zoomIn(self):
         if self._active:
             self._currentZoom[0] += incr
             self._currentZoom[1] += incr
-            self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
+            try:
+                self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
+            except DBusException:
+                self._refreshDBUS()
         else:
-            self._zoom.setMagFactor(1 + incr, 1 + incr)
+            try:
+                self._zoom.setMagFactor(1 + incr, 1 + incr)
+            except DBusException:
+                self._refreshDBUS()
             self._currentZoom = [1 + incr, 1 + incr]
             self._mag.setActive(True)
             self._active = True
@@ -52,7 +57,10 @@ class Zoomer:
                 self._mag.setActive(False)
                 self._active = False
             else:
-                self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
+                try:
+                    self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
+                except DBusException:
+                    self._refreshDBUS()
 
 def main():
     z = Zoomer()
