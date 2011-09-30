@@ -12,3 +12,9 @@ There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mouse
 A ppa for Ubuntu oneiric is available from:
 
 https://launchpad.net/~tobias-quinn/+archive/gsmz
+
+to install do:
+
+sudo add-apt-repository ppa:tobias-quinn/gsmz
+sudo apt-get update
+sudo apt-get install gnome-shell-mousewheel-zoom
