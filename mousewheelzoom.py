@@ -11,6 +11,7 @@ session_bus = dbus.SessionBus()
 
 from Xlib.display import Display
 from Xlib import X
+from Xlib.error import ConnectionClosedError
 
 buttons = [X.Button4, X.Button5]
 masks = [0, X.LockMask, X.Mod2Mask, X.LockMask | X.Mod2Mask]
@@ -80,7 +81,10 @@ def main():
                     X.NONE)
 
     while 1:
-        event = root.display.next_event()
+        try:
+            event = root.display.next_event()
+        except ConnectionClosedError:
+            pass
         try:
             if event.detail == X.Button4:
                 z.zoomIn()
