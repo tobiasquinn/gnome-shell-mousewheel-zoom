@@ -5,7 +5,7 @@
 # (c) Sep 2011, Tobias Quinn <tobias@tobiasquinn.com>
 # GPLv3
 
-import dbus
+import dbus, sys
 from dbus import DBusException
 session_bus = dbus.SessionBus()
 
@@ -83,15 +83,14 @@ def main():
     while 1:
         try:
             event = root.display.next_event()
-        except ConnectionClosedError:
-            pass
-        try:
             if event.detail == X.Button4:
                 z.zoomIn()
             elif event.detail == X.Button5:
                 z.zoomOut()
         except AttributeError:
             pass
+        except ConnectionClosedError:
+            sys.exit()
 
 if __name__ == '__main__':
     main()

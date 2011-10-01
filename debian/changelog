@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.5.3-1) oneiric; urgency=low
+
+  * Fix cpu usage and correct exit on logout
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Sat, 01 Oct 2011 14:11:51 +0100
+
 gnome-shell-mousewheel-zoom (0.5.2-1) oneiric; urgency=low
 
   * Fix xlib startup bug on oneiric
