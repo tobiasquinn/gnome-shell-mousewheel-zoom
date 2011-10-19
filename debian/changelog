@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.5.4-1) oneiric; urgency=low
+
+  * Fix issue #2 to add zoom mulitplication
+
+ -- Tobias Quinn <tobias@chernushka>  Wed, 19 Oct 2011 22:53:53 +0100
+
 gnome-shell-mousewheel-zoom (0.5.3-1) oneiric; urgency=low
 
   * Fix cpu usage and correct exit on logout
