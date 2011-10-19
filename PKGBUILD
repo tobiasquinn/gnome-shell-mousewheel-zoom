@@ -2,7 +2,7 @@
 # Maintainer: Tobias Quinn <tobias@tobiasquinn.com>
 pkgname=gnome-shell-mousewheel-zoom
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Enable mousewheel zoom using left-alt key using gnome-shell"
 arch=('i686' 'x86_64')
 url="https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom"
@@ -12,7 +12,7 @@ conflicts=('gnome-shell-mousewheel-zoom-git')
 provides=('gnome-shell-mousewheel-zoom')
 source=("gnome-shell-mousewheel-zoom_$pkgver.tar.gz::https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom/tarball/upstream/$pkgver")
 md5sums=('7b8ce81afc757707e49357d9ebc3454d')
-_sourcename=('tobiasquinn-gnome-shell-mousewheel-zoom-1f1e4cb')
+_sourcename=('tobiasquinn-gnome-shell-mousewheel-zoom-c82e31f')
 build() {
   # Change to use python2
   sed -i "s/usr\/bin\/env python$/usr\/bin\/env python2/" ${srcdir}/${_sourcename}/mousewheelzoom.py
