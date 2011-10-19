@@ -11,7 +11,7 @@ depends=('python2' 'dbus-python' 'python-xlib' 'gnome-shell')
 conflicts=('gnome-shell-mousewheel-zoom-git')
 provides=('gnome-shell-mousewheel-zoom')
 source=("gnome-shell-mousewheel-zoom_$pkgver.tar.gz::https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom/tarball/upstream/$pkgver")
-md5sums=('a88c5dbc922d23d81d293ea2cb5129bf')
+md5sums=('7b8ce81afc757707e49357d9ebc3454d')
 _sourcename=('tobiasquinn-gnome-shell-mousewheel-zoom-1f1e4cb')
 build() {
   # Change to use python2
