@@ -35,8 +35,8 @@ class Zoomer:
 
     def zoomIn(self):
         if self._active:
-            self._currentZoom[0] += incr
-            self._currentZoom[1] += incr
+            self._currentZoom[0] *= (1.0+incr)
+            self._currentZoom[1] *= (1.0+incr)
             try:
                 self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
             except DBusException:
@@ -52,8 +52,8 @@ class Zoomer:
 
     def zoomOut(self):
         if self._active:
-            self._currentZoom[0] -= incr
-            self._currentZoom[1] -= incr
+            self._currentZoom[0] *= (1.0-incr)
+            self._currentZoom[1] *= (1.0-incr)
             if self._currentZoom[0] <= 1:
                 self._mag.setActive(False)
                 self._active = False
