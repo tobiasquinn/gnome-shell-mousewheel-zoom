@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.5.5-1) oneiric; urgency=low
+
+  * Only autostart on gnome-shell session 
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Fri, 21 Oct 2011 03:14:28 +0100
+
 gnome-shell-mousewheel-zoom (0.5.4-1) oneiric; urgency=low
 
   * Fix issue #2 to add zoom mulitplication
