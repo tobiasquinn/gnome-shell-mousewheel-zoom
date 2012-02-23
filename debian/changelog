@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.5.6-1) oneiric; urgency=low
+
+  * Allow autostart in all sessions (to support cinnamon)
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Thu, 23 Feb 2012 14:32:48 +0000
+
 gnome-shell-mousewheel-zoom (0.5.5-1) oneiric; urgency=low
 
   * Only autostart on gnome-shell session 

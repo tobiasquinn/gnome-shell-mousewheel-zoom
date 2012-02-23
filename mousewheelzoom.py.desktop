@@ -6,4 +6,3 @@ Hidden=false
 OnlyShowIn=GNOME;
 Name=Mouse Wheel Zoom
 Comment=Zoom using mouse wheel and Left-Alt key
-AutostartCondition=GNOME3 if-session gnome
