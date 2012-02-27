@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.5.6-0ubuntu1) precise; urgency=low
+
+  * Corrected versioning for precise build
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Mon, 27 Feb 2012 22:31:48 +0000
+
 gnome-shell-mousewheel-zoom (0.5.6-1) oneiric; urgency=low
 
   * Allow autostart in all sessions (to support cinnamon)
