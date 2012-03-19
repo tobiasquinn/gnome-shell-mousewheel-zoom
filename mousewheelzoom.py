@@ -24,7 +24,8 @@ class Zoomer:
     def __init__(self):
         self._app_settings = Gio.Settings.new(APP_BASE_KEY)
         self._mag_settings = Gio.Settings.new(MAG_BASE_KEY)
-        self._active = self._app_settings.get_boolean("screen-magnifier-enabled")
+        self._app_settings.set_boolean("screen-magnifier-enabled", False)
+        self._active = False
         self._currentZoom = self._mag_settings.get_double("mag-factor")
 
     def zoomIn(self):

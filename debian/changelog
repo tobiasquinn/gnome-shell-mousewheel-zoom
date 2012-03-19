@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.6.1-0ubuntu1) precise; urgency=low
+
+  * Disable zooming on startup in case of crashes
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Mon, 19 Mar 2012 21:52:02 +0000
+
 gnome-shell-mousewheel-zoom (0.6.0-0ubuntu1) precise; urgency=low
 
   * Now uses gsettings for control (dbus interface not working with precise
