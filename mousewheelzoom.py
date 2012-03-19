@@ -5,9 +5,9 @@
 # (c) Sep 2011, Tobias Quinn <tobias@tobiasquinn.com>
 # GPLv3
 
-import dbus, sys
-from dbus import DBusException
-session_bus = dbus.SessionBus()
+import sys
+
+from gi.repository import Gio
 
 from Xlib.display import Display
 from Xlib import X
@@ -17,51 +17,34 @@ buttons = [X.Button4, X.Button5]
 masks = [0, X.LockMask, X.Mod2Mask, X.LockMask | X.Mod2Mask]
 incr = 0.1
 
+APP_BASE_KEY = "org.gnome.desktop.a11y.applications"
+MAG_BASE_KEY = "org.gnome.desktop.a11y.magnifier"
+
 class Zoomer:
     def __init__(self):
-        self._refreshDBUS()
-        self._active = self._mag.isActive()
-        cz = self._zoom.getMagFactor()
-        self._currentZoom = [cz[0], cz[1]]
-
-    def _refreshDBUS(self):
-        self._mag = session_bus.get_object(
-                'org.gnome.Magnifier',
-                '/org/gnome/Magnifier')
-        self._mag.getZoomRegions()
-        self._zoom = session_bus.get_object(
-                'org.gnome.Magnifier',
-                '/org/gnome/Magnifier/ZoomRegion/zoomer0')
+        self._app_settings = Gio.Settings.new(APP_BASE_KEY)
+        self._mag_settings = Gio.Settings.new(MAG_BASE_KEY)
+        self._active = self._app_settings.get_boolean("screen-magnifier-enabled")
+        self._currentZoom = self._mag_settings.get_double("mag-factor")
 
     def zoomIn(self):
         if self._active:
-            self._currentZoom[0] *= (1.0+incr)
-            self._currentZoom[1] *= (1.0+incr)
-            try:
-                self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
-            except DBusException:
-                self._refreshDBUS()
+            self._currentZoom *= (1.0+incr)
+            self._mag_settings.set_double("mag-factor", self._currentZoom)
         else:
-            try:
-                self._zoom.setMagFactor(1 + incr, 1 + incr)
-            except DBusException:
-                self._refreshDBUS()
-            self._currentZoom = [1 + incr, 1 + incr]
-            self._mag.setActive(True)
+            self._currentZoom = 1 + incr
+            self._mag_settings.set_double("mag-factor", self._currentZoom)
+            self._app_settings.set_boolean("screen-magnifier-enabled", True)
             self._active = True
 
     def zoomOut(self):
         if self._active:
-            self._currentZoom[0] *= (1.0-incr)
-            self._currentZoom[1] *= (1.0-incr)
-            if self._currentZoom[0] <= 1:
-                self._mag.setActive(False)
+            self._currentZoom *= (1.0-incr)
+            if self._currentZoom <= 1:
+                self._app_settings.set_boolean("screen-magnifier-enabled", False)
                 self._active = False
             else:
-                try:
-                    self._zoom.setMagFactor(self._currentZoom[0], self._currentZoom[1])
-                except DBusException:
-                    self._refreshDBUS()
+                self._mag_settings.set_double("mag-factor", self._currentZoom)
 
 def main():
     z = Zoomer()
