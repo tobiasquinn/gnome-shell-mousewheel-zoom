@@ -1,0 +1,8 @@
+
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/mousewheelzoom
+Hidden=false
+OnlyShowIn=GNOME;
+Name=Mouse Wheel Zoom
+Comment=Zoom using mouse wheel and Left-Alt key

@@ -35,6 +35,13 @@ class Zoomer : GLib.Object {
     private bool zoom_active;
 
     public Zoomer() {
+        refresh_dbus();
+        // get current zoom state
+        zoom_active = mag.isActive();
+        current_zoom = zoom.getMagFactor();
+    }
+
+    private void refresh_dbus() {
         mag = Bus.get_proxy_sync(BusType.SESSION,
                 "org.gnome.Magnifier",
                 "/org/gnome/Magnifier");
@@ -43,9 +50,6 @@ class Zoomer : GLib.Object {
         zoom = Bus.get_proxy_sync(BusType.SESSION,
                 "org.gnome.Magnifier",
                 "/org/gnome/Magnifier/ZoomRegion/zoomer0");
-        // get current zoom state
-        zoom_active = mag.isActive();
-        current_zoom = zoom.getMagFactor();
     }
 
     public void zoomIn() {
@@ -56,7 +60,11 @@ class Zoomer : GLib.Object {
             mag.setActive(true);
             zoom_active = true;
         }
-        zoom.setMagFactor(current_zoom, current_zoom);
+        try {
+            zoom.setMagFactor(current_zoom, current_zoom);
+        } catch (IOError e) {
+            refresh_dbus();
+        }
     }
 
     public void zoomOut() {
@@ -67,7 +75,11 @@ class Zoomer : GLib.Object {
                 mag.setActive(false);
                 zoom_active = false;
             } else {
-                zoom.setMagFactor(current_zoom, current_zoom);
+                try {
+                    zoom.setMagFactor(current_zoom, current_zoom);
+                } catch (IOError e) {
+                    refresh_dbus();
+                }
             }
         }
     }

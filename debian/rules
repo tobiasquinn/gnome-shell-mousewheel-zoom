@@ -13,7 +13,7 @@
 	dh $@ 
 
 override_dh_install:
-	dh_install mousewheelzoom.py /usr/bin/
-	dh_install mousewheelzoom.py.desktop /etc/xdg/autostart
+	dh_install mousewheelzoom /usr/bin/
+	dh_install mousewheelzoom.desktop /etc/xdg/autostart
 
 .PHONY: override_dh_install

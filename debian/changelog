@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.6.0-0ubuntu1) precise; urgency=low
+
+  * Ported to vala for precise gnome-shell
+
+ -- Tobias Quinn <tobias@chernushka>  Fri, 23 Mar 2012 01:25:16 +0000
+
 gnome-shell-mousewheel-zoom (0.5.6-0ubuntu1) precise; urgency=low
 
   * Corrected versioning for precise build
