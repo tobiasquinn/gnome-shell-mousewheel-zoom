@@ -93,78 +93,64 @@ class Zoomer : GLib.Object {
     }
 }
 
-class WaitForMagnifier : GLib.Object {
+class WatchForMagnifier : GLib.Object {
     private MainLoop loop;
-    private bool running = false;
-    private int count = 0;
 
-    private bool doStuff() {
-        if (!running) {
-            message("NOT Doing stuff %d", count++);
-        } else {
-        }
-        return true;
-    }
-
-    public WaitForMagnifier() {
+    public WatchForMagnifier() {
+        // for now this blocks till the interface appears
         DBusConnection conn = Bus.get_sync(BusType.SESSION);
-        //Bus.watch_name(BusType.SESSION,
         Bus.watch_name_on_connection(conn,
             "org.gnome.Magnifier",
             BusNameWatcherFlags.NONE,
             on_name_appeared,
             on_name_vanished);
         this.loop = new MainLoop();
-        Idle.add(doStuff);
         this.loop.run();
     }
 
     private void on_name_appeared() {
         message("name appeared\n");
-        running = true;
-//        this.loop.quit();
+        this.loop.quit();
     }
 
     private void on_name_vanished() {
         message("name vanished\n");
-        running = false;
     }
 }
 
 void main(string[] arg) {
-    // wait for the magnifier service to become available
-//    WaitForMagnifier waiter = new WaitForMagnifier();
-            X.Display disp = new X.Display();
-            X.Window root = disp.default_root_window();
-            foreach (int button in BUTTONS) {
-                disp.grab_button(button,
-                        X.KeyMask.Mod2Mask | X.KeyMask.Mod1Mask,
-                        root,
-                        false,
-                        0,
-                        X.GrabMode.Async,
-                        X.GrabMode.Async,
-                        0,
-                        0);
-            }
+    WatchForMagnifier wfm = new WatchForMagnifier();
 
-            X.Event evt = Event();
-            Zoomer zoom = new Zoomer();
-            while (true) {
-                disp.next_event(ref evt);
-                switch(evt.xbutton.button) {
-                    case MOUSEWHEEL_UP:
-                        zoom.zoomIn();
-                        break;
+    X.Display disp = new X.Display();
+    X.Window root = disp.default_root_window();
+    foreach (int button in BUTTONS) {
+        disp.grab_button(button,
+                X.KeyMask.Mod2Mask | X.KeyMask.Mod1Mask,
+                root,
+                false,
+                0,
+                X.GrabMode.Async,
+                X.GrabMode.Async,
+                0,
+                0);
+    }
 
-                    case MOUSEWHEEL_DOWN:
-                        zoom.zoomOut();
-                        break;
+    X.Event evt = Event();
+    Zoomer zoom = new Zoomer();
+    while (true) {
+        disp.next_event(ref evt);
+        switch(evt.xbutton.button) {
+            case MOUSEWHEEL_UP:
+                zoom.zoomIn();
+                break;
 
-                    default:
-                        stdout.printf("mousewheelzoom (vala) uncaught event\n");
-                        break;
-                }
-            }
+            case MOUSEWHEEL_DOWN:
+                zoom.zoomOut();
+                break;
 
+            default:
+                stdout.printf("mousewheelzoom (vala) uncaught event\n");
+                break;
+        }
+    }
 }
