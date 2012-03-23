@@ -14,6 +14,7 @@ const int[] BUTTONS = { MOUSEWHEEL_UP, MOUSEWHEEL_DOWN };
 [DBus (name = "org.gnome.Magnifier")]
 interface Magnifier : Object {
     public abstract bool isActive() throws IOError;
+    public abstract void setActive(bool active) throws IOError;
     public abstract GLib.ObjectPath[] getZoomRegions() throws IOError;
 }
 
@@ -24,11 +25,11 @@ interface ZoomRegion : Object {
 }
 
 class Zoomer : GLib.Object {
-// DBus proxy objects
+    // DBus proxy objects
     private Magnifier mag;
     private ZoomRegion zoom;
 
-// Zoom state
+    // Zoom state
     private const double incr = 0.1;
     private double current_zoom;
     private bool zoom_active;
@@ -45,16 +46,30 @@ class Zoomer : GLib.Object {
         // get current zoom state
         zoom_active = mag.isActive();
         current_zoom = zoom.getMagFactor();
-        stdout.printf("ACTIVE %s\n", zoom_active ? "Yes" : "No");
-        stdout.printf("ZOOM %f\n", current_zoom);
     }
 
     public void zoomIn() {
-        stdout.printf("ZI\n");
+        if (zoom_active) {
+            current_zoom *= (1 + incr);
+        } else {
+            current_zoom *= (1 + incr);
+            mag.setActive(true);
+            zoom_active = true;
+        }
+        zoom.setMagFactor(current_zoom, current_zoom);
     }
 
     public void zoomOut() {
-        stdout.printf("ZOUT\n");
+        if (zoom_active) {
+            current_zoom *= (1.0 - incr);
+            if (current_zoom <= 1) {
+                current_zoom = 1;
+                mag.setActive(false);
+                zoom_active = false;
+            } else {
+                zoom.setMagFactor(current_zoom, current_zoom);
+            }
+        }
     }
 }
 
@@ -75,7 +90,6 @@ void main(string[] arg) {
 
     X.Event evt = Event();
     Zoomer zoom = new Zoomer();
-    return;
     while (true) {
         disp.next_event(ref evt);
         switch(evt.xbutton.button) {
@@ -88,7 +102,7 @@ void main(string[] arg) {
                 break;
 
             default:
-                stdout.printf("uncaught event\n");
+                stdout.printf("mousewheelzoom (vala) uncaught event\n");
                 break;
         }
     }
