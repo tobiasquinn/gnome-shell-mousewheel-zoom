@@ -34,3 +34,9 @@ release: clean
 # clean all built files
 clean:
 	@rm -v -fr *~ *.c $(PROGRAM)
+
+install: release
+	mkdir -p $(DESTDIR)/usr/bin
+	install -m 0755 $(PROGRAM) -t $(DESTDIR)/usr/bin
+	mkdir -p $(DESTDIR)/etc/xdg/autostart
+	install -m 0644 mousewheelzoom.desktop -t $(DESTDIR)/etc/xdg/autostart
