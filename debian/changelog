@@ -1,3 +1,15 @@
+gnome-shell-mousewheel-zoom (0.7.3-0ubuntu1) precise; urgency=low
+
+  * correct handling of initial zoom
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Wed, 28 Mar 2012 20:51:47 +0100
+
+gnome-shell-mousewheel-zoom (0.7.2-0ubuntu1) precise; urgency=low
+
+  * Better startup behaviour 
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Wed, 28 Mar 2012 17:09:33 +0100
+
 gnome-shell-mousewheel-zoom (0.7.1-0ubuntu1) precise; urgency=low
 
   * Ported to vala for precise gnome-shell

@@ -45,7 +45,11 @@ class Zoomer : GLib.Object {
         } while (!interfaces_active);
         // get current zoom state
         zoom_active = mag.isActive();
-        current_zoom = zoom.getMagFactor();
+        if (zoom_active) {
+            current_zoom = zoom.getMagFactor();
+        } else {
+            current_zoom = 1;
+        }
     }
 
     private void refresh_dbus() {
