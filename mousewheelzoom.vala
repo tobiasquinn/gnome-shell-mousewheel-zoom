@@ -37,9 +37,12 @@ class Zoomer : GLib.Object {
 
     public Zoomer() {
         interfaces_active = false;
-        while (!interfaces_active) {
+        mag = Bus.get_proxy_sync(BusType.SESSION,
+                "org.gnome.Magnifier",
+                "/org/gnome/Magnifier");
+        do {
             refresh_dbus();
-        }
+        } while (!interfaces_active);
         // get current zoom state
         zoom_active = mag.isActive();
         current_zoom = zoom.getMagFactor();
@@ -47,17 +50,14 @@ class Zoomer : GLib.Object {
 
     private void refresh_dbus() {
         try {
-            mag = Bus.get_proxy_sync(BusType.SESSION,
-                    "org.gnome.Magnifier",
-                    "/org/gnome/Magnifier");
             // refresh zoom regions (exposes ZoomRegion interface)
             mag.getZoomRegions();
             zoom = Bus.get_proxy_sync(BusType.SESSION,
                     "org.gnome.Magnifier",
                     "/org/gnome/Magnifier/ZoomRegion/zoomer0");
-        } catch (IOError e) {
+            interfaces_active = true;
+        } catch (Error e) {
         }
-        interfaces_active = true;
     }
 
     public void zoomIn() {
@@ -70,7 +70,7 @@ class Zoomer : GLib.Object {
         }
         try {
             zoom.setMagFactor(current_zoom, current_zoom);
-        } catch (IOError e) {
+        } catch (Error e) {
             refresh_dbus();
         }
     }
@@ -85,7 +85,7 @@ class Zoomer : GLib.Object {
             } else {
                 try {
                     zoom.setMagFactor(current_zoom, current_zoom);
-                } catch (IOError e) {
+                } catch (Error e) {
                     refresh_dbus();
                 }
             }
@@ -119,8 +119,10 @@ class WatchForMagnifier : GLib.Object {
 }
 
 void main(string[] arg) {
+    // wait for the magnifier interface to appear
     WatchForMagnifier wfm = new WatchForMagnifier();
 
+    // grab the alt-key and scrollwheel
     X.Display disp = new X.Display();
     X.Window root = disp.default_root_window();
     foreach (int button in BUTTONS) {
@@ -135,6 +137,7 @@ void main(string[] arg) {
                 0);
     }
 
+    // process the X events
     X.Event evt = Event();
     Zoomer zoom = new Zoomer();
     while (true) {
