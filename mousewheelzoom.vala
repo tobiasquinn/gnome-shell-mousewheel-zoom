@@ -10,6 +10,7 @@ const int MOUSEWHEEL_UP   = 4;
 const int MOUSEWHEEL_DOWN = 5;
 
 const int[] BUTTONS = { MOUSEWHEEL_UP, MOUSEWHEEL_DOWN };
+const int[] MASKS = { 0, X.KeyMask.Mod2Mask, X.KeyMask.LockMask , X.KeyMask.LockMask | X.KeyMask.Mod2Mask };
 
 [DBus (name = "org.gnome.Magnifier")]
 interface Magnifier : Object {
@@ -130,15 +131,17 @@ void main(string[] arg) {
     X.Display disp = new X.Display();
     X.Window root = disp.default_root_window();
     foreach (int button in BUTTONS) {
-        disp.grab_button(button,
-                X.KeyMask.Mod2Mask | X.KeyMask.Mod1Mask,
-                root,
-                false,
-                0,
-                X.GrabMode.Async,
-                X.GrabMode.Async,
-                0,
-                0);
+        foreach (int mask in MASKS) {
+            disp.grab_button(button,
+                    X.KeyMask.Mod1Mask | mask,
+                    root,
+                    false,
+                    0,
+                    X.GrabMode.Async,
+                    X.GrabMode.Async,
+                    0,
+                    0);
+        }
     }
 
     // process the X events
