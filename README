@@ -9,7 +9,7 @@ like enhanced zoom desktop in compiz using the alt modifier and mouse scrollwhee
 
 There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mousewheel-zoom-git)
 
-A ppa for Ubuntu oneiric is available from:
+A ppa for Ubuntu oneiric, precise and quantal is available from:
 
 https://launchpad.net/~tobias-quinn/+archive/gsmz
 
@@ -19,6 +19,8 @@ sudo add-apt-repository ppa:tobias-quinn/gsmz
 sudo apt-get update
 sudo apt-get install gnome-shell-mousewheel-zoom
 
-There is a ppa for Ubuntu precise availble from the same place. This is the
-precise branch which is a port to vala. There is also a precise port using
-gsetting in the branch precise-gsettings.
+The branches have recently changed master is for gnome 3.4 onwards (ubuntu precies and quantal).
+
+oneiric branch is for ubuntu oneiric and uses python-xlib
+
+There is also a ubuntu precise port using gsettings in the branch precise-gsettings.
