@@ -105,10 +105,10 @@ class WatchForMagnifier : GLib.Object {
         // for now this blocks till the interface appears
         DBusConnection conn = Bus.get_sync(BusType.SESSION);
         Bus.watch_name_on_connection(conn,
-            "org.gnome.Magnifier",
-            BusNameWatcherFlags.NONE,
-            on_name_appeared,
-            on_name_vanished);
+                "org.gnome.Magnifier",
+                BusNameWatcherFlags.NONE,
+                on_name_appeared,
+                on_name_vanished);
         this.loop = new MainLoop();
         this.loop.run();
     }
@@ -127,13 +127,26 @@ void main(string[] arg) {
     // wait for the magnifier interface to appear
     WatchForMagnifier wfm = new WatchForMagnifier();
 
-    // grab the alt-key and scrollwheel
+    // load appropriate key from dconf configuration
+    var settings = new Settings("com.tobiasquinn.mousewheelzoom");
+    string key = settings.get_string("modifier-key");
+    // default to ALT as modifier
+    int keymask = X.KeyMask.Mod1Mask;
+    switch (key) {
+        case "ctrl":
+            keymask = X.KeyMask.ControlMask;
+            break;
+        case "shift":
+            keymask = X.KeyMask.ShiftMask;
+            break;
+    }
+    // grab the chosen key and scrollwheel
     X.Display disp = new X.Display();
     X.Window root = disp.default_root_window();
     foreach (int button in BUTTONS) {
         foreach (int mask in MASKS) {
             disp.grab_button(button,
-                    X.KeyMask.Mod1Mask | mask,
+                    keymask | mask,
                     root,
                     false,
                     0,

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="mousewheelzoom">
+    <schema path="/com/tobiasquinn/mousewheelzoom/" id="com.tobiasquinn.mousewheelzoom">
+        <key type="s" name="modifier-key">
+            <choices>
+                <choice value='alt'/>
+                <choice value='ctrl'/>
+                <choice value='shift'/>
+            </choices>
+            <default>'alt'</default>
+            <summary>Modifier key to enable mousewheel zooming</summary>
+            <description>This list is the modifier to be used in conjunction with the mousewheel for zooming. Possible values are 'alt', 'ctrl', 'shift'.</description>
+        </key>
+    </schema>
+</schemalist>
+
