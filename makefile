@@ -40,3 +40,5 @@ install: release
 	install -m 0755 $(PROGRAM) -t $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/etc/xdg/autostart
 	install -m 0644 mousewheelzoom.desktop -t $(DESTDIR)/etc/xdg/autostart
+	mkdir -p $(DESTDIR)/usr/share/glib-2.0/schemas
+	install -m 0644 com.tobiasquinn.mousewheelzoom.gschema.xml -t $(DESTDIR)/usr/share/glib-2.0/schemas
