@@ -11,6 +11,8 @@ To select the modifier key use dconf-editor and navigate to:
 
 com->tobiasquinn.com->mousewheelzoom->modifier-key
 
+Note: mousewheelzoom needs to be restarted after a configuration change for it to take effect
+
 Note: config only works with the precise and quantal builds (master branch)
 
 There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mousewheel-zoom-git)
