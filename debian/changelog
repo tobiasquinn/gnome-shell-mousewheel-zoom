@@ -1,8 +1,8 @@
-gnome-shell-mousewheel-zoom (0.8.0-0ubuntu2) oneiric; urgency=low
+gnome-shell-mousewheel-zoom (0.8.0-0ubuntu2) quantal; urgency=low
 
-  * added configutaion option (using dconf-tools)
+  * added configuration option (using dconf-tools)
 
- -- Tobias Quinn <tobias@tobiasquinn.com>  Wed, 26 Sep 2012 02:52:09 +0100
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Wed, 26 Sep 2012 03:04:09 +0100
 
 gnome-shell-mousewheel-zoom (0.8.0-0ubuntu1) precise; urgency=low
 
