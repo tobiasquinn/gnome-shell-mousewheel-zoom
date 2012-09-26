@@ -1,4 +1,4 @@
-gnome-shell-mousewheel-zoom (0.8.0-0ubuntu2) quantal; urgency=low
+gnome-shell-mousewheel-zoom (0.8.0-0ubuntu3) quantal; urgency=low
 
   * added configuration option (using dconf-tools)
 
