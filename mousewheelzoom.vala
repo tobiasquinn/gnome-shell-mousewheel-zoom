@@ -123,13 +123,12 @@ class WatchForMagnifier : GLib.Object {
     }
 }
 
-void main(string[] arg) {
-    // wait for the magnifier interface to appear
-    WatchForMagnifier wfm = new WatchForMagnifier();
+// persistant across key changes
+static int lastButton;// = -1;
+static X.Display disp;// = new X.Display();
+static X.Window root;// = disp.default_root_window();
 
-    // load appropriate key from dconf configuration
-    var settings = new Settings("com.tobiasquinn.mousewheelzoom");
-    string key = settings.get_string("modifier-key");
+void grabKeys(string key) {
     // default to ALT as modifier
     int keymask = X.KeyMask.Mod1Mask;
     switch (key) {
@@ -139,12 +138,18 @@ void main(string[] arg) {
         case "shift":
             keymask = X.KeyMask.ShiftMask;
             break;
+        case "alt":
+            keymask = X.KeyMask.Mod1Mask;
+            break;
     }
     // grab the chosen key and scrollwheel
-    X.Display disp = new X.Display();
-    X.Window root = disp.default_root_window();
     foreach (int button in BUTTONS) {
         foreach (int mask in MASKS) {
+            if (lastButton != -1) {
+                disp.ungrab_button(button,
+                        lastButton | mask,
+                        root);
+            }
             disp.grab_button(button,
                     keymask | mask,
                     root,
@@ -156,24 +161,57 @@ void main(string[] arg) {
                     0);
         }
     }
+    lastButton = keymask;
+}
 
-    // process the X events
-    X.Event evt = Event();
-    Zoomer zoom = new Zoomer();
-    while (true) {
-        disp.next_event(ref evt);
-        switch(evt.xbutton.button) {
-            case MOUSEWHEEL_UP:
-                zoom.zoomIn();
-                break;
+class xeventThread {
+    public void* xeventThreadFunc() {
+        // process the Xevents
+        X.Event evt = Event();
+        Zoomer zoom = new Zoomer();
+        while (true) {
+            disp.next_event(ref evt);
+            switch(evt.xbutton.button) {
+                case MOUSEWHEEL_UP:
+                    zoom.zoomIn();
+                    break;
 
-            case MOUSEWHEEL_DOWN:
-                zoom.zoomOut();
-                break;
+                case MOUSEWHEEL_DOWN:
+                    zoom.zoomOut();
+                    break;
 
-            default:
-                stdout.printf("mousewheelzoom (vala) uncaught event\n");
-                break;
+                default:
+                    stdout.printf("mousewheelzoom (vala) uncaught event\n");
+                    break;
+            }
         }
     }
+}
+
+void main(string[] arg) {
+    // wait for the magnifier interface to appear
+    WatchForMagnifier wfm = new WatchForMagnifier();
+
+    // load appropriate key from dconf configuration
+    var settings = new Settings("com.tobiasquinn.mousewheelzoom");
+    string key = settings.get_string("modifier-key");
+    // set the display (globals)
+    disp = new X.Display();
+    root = disp.default_root_window();
+    lastButton = -1;
+    // setup our startup key
+    grabKeys(settings.get_string("modifier-key"));
+
+    // watch for configuration changes
+    settings.changed["modifier-key"].connect (() => {
+        print("New key: %s\n", settings.get_string("modifier-key"));
+        grabKeys(settings.get_string("modifier-key"));
+    });
+
+    // run a mainloop to watch for config changes
+    MainLoop loop = new MainLoop();
+    // do x event processing in a thread
+    var thread = new xeventThread();
+    Thread.create<void*>(thread.xeventThreadFunc, true);
+    loop.run();
 }
