@@ -13,8 +13,8 @@ conflicts=('gnome-shell-mousewheel-zoom-git')
 provides=('gnome-shell-mousewheel-zoom')
 install=gnome-shell-mousewheel-zoom.install
 source=("gnome-shell-mousewheel-zoom_$pkgver.tar.gz::https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom/tarball/upstream/$pkgver")
-md5sums=('6b532d61f3fe3f361361cc7cd3bfb4bf')
-_sourcename=('tobiasquinn-gnome-shell-mousewheel-zoom-2b71949')
+md5sums=('6fd73ac036c8e6d2a499d28df52fdcb5')
+_sourcename=('tobiasquinn-gnome-shell-mousewheel-zoom-16d8078')
 build() {
   cd "$srcdir/${_sourcename}"
 
