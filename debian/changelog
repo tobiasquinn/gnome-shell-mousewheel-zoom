@@ -1,3 +1,9 @@
+gnome-shell-mousewheel-zoom (0.8.0-0ubuntu4) raring; urgency=low
+
+  * added configuration option (using dconf-tools)
+
+ -- Tobias Quinn <tobias@tobiasquinn.com>  Wed, 26 Sep 2012 03:04:09 +0100
+
 gnome-shell-mousewheel-zoom (0.8.0-0ubuntu3) quantal; urgency=low
 
   * added configuration option (using dconf-tools)
