@@ -11,6 +11,11 @@
             <summary>Modifier key to enable mousewheel zooming</summary>
             <description>This list is the modifier to be used in conjunction with the mousewheel for zooming. Possible values are 'alt', 'ctrl', 'shift'.</description>
         </key>
+        <key type="b" name="super-key">
+            <default>true</default>
+            <summary>Whether to include super key in modifier</summary>
+            <description>If this is checked, the super key must be pressed in addition to whatever other modifier key is used.</description>
+        </key>
     </schema>
 </schemalist>
 
