@@ -24,6 +24,18 @@ There is also a ubuntu precise port using gsettings in the branch precise-gsetti
 ## Arch Linux
 There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mousewheel-zoom-git)
 
+## Linux Mint 15
+For Linux Mint 15 olivia (Ubuntu 13.04 raring) this is the installation procedure that worked for me:
+```
+sudo apt-get install git valac libx11-dev
+mkdir ~/src ; cd ~/src
+git clone https://github.com/tobiasquinn/gnome-shell-mousewheel-zoom.git
+cd gnome-shell-mousewheel-zoom ; make
+sudo cp com.tobiasquinn.mousewheelzoom.gschema.xml /usr/share/glib-2.0/schemas/
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+./mousewheelzoom (<-- add to mdm startup applications)
+```
+
 ## Ubuntu
 A ppa for Ubuntu oneiric, precise and quantal is available from:
 
