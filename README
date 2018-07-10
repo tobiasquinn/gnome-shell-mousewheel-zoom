@@ -5,7 +5,7 @@ gnome-shell-mousewheel-zoom
 GPLv3
 
 This uses python-xlib and python-dbus to allow the gnome shell to be zoomed
-like enhanced zoom desktop in compiz using the alt modifier and mouse scrollwheel
+like enhanced zoom desktop in compiz using the meta modifier and mouse scrollwheel
 
 There is an archlinux PKGBUILD provided (available from AUR as gnome-shell-mousewheel-zoom-git)
 
@@ -20,5 +20,9 @@ sudo apt-get update
 sudo apt-get install gnome-shell-mousewheel-zoom
 
 There is a ppa for Ubuntu precise availble from the same place. This is the
-precise branch which is a port to vala. There is also a precise port using
-gsetting in the branch precise-gsettings.
+precise-gsettings branch which uses gsetting. There is also precise port to vala.
+
+## Notes
+`Xlib.error.DisplayConnectionError: Can't connect to display ":0": b'No protocol specified\n'`
+If you get this error, run `xhost '+si:localuser:USERNAME'` as a temporaly solution.
+

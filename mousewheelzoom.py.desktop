@@ -1,8 +1,7 @@
-
 [Desktop Entry]
 Type=Application
 Exec=/usr/bin/mousewheelzoom.py
 Hidden=false
 OnlyShowIn=GNOME;
 Name=Mouse Wheel Zoom
-Comment=Zoom using mouse wheel and Left-Alt key
+Comment=Zoom using mouse wheel and Meta key

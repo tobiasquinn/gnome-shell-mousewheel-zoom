@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # gnome-shell-mousewheel-zoom
 
@@ -24,7 +24,7 @@ class Zoomer:
     def __init__(self):
         self._app_settings = Gio.Settings.new(APP_BASE_KEY)
         self._mag_settings = Gio.Settings.new(MAG_BASE_KEY)
-        self._app_settings.set_boolean("screen-magnifier-enabled", False)
+        self._app_settings.set_boolean("screen-magnifier-enabled", True)
         self._active = False
         self._currentZoom = self._mag_settings.get_double("mag-factor")
 
@@ -56,7 +56,7 @@ def main():
     for mask in masks:
         for button in buttons:
             root.grab_button(button,
-                    X.Mod1Mask | mask,
+                    X.Mod4Mask | mask,
                     root,
                     False,
                     X.GrabModeAsync,
