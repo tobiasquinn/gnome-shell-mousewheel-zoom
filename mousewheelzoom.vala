@@ -130,6 +130,8 @@ void main(string[] arg) {
     // load appropriate key from dconf configuration
     var settings = new Settings("com.tobiasquinn.mousewheelzoom");
     string key = settings.get_string("modifier-key");
+    bool super_key = settings.get_boolean("super-key");
+
     // default to ALT as modifier
     int keymask = X.KeyMask.Mod1Mask;
     switch (key) {
@@ -139,7 +141,15 @@ void main(string[] arg) {
         case "shift":
             keymask = X.KeyMask.ShiftMask;
             break;
+        case "super":
+            keymask = X.KeyMask.Mod4Mask;
+            break;
     }
+
+    if (super_key) {
+        keymask = keymask | X.KeyMask.Mod4Mask;
+    }
+
     // grab the chosen key and scrollwheel
     X.Display disp = new X.Display();
     X.Window root = disp.default_root_window();
