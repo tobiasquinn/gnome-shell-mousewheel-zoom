@@ -141,6 +141,9 @@ void main(string[] arg) {
         case "shift":
             keymask = X.KeyMask.ShiftMask;
             break;
+        case "super":
+            keymask = X.KeyMask.Mod4Mask;
+            break;
     }
 
     if (super_key) {
