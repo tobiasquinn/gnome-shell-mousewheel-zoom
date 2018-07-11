@@ -47,6 +47,15 @@ sudo add-apt-repository ppa:tobias-quinn/gsmz
 sudo apt-get update
 sudo apt-get install gnome-shell-mousewheel-zoom
 
+## Fedora
+To be able to compile (using `make`) the vala version, run:
+```
+yum -y install vala gobject-introspection-devel libX11-devel
+```
+
 ## hideonzoom.py
 There's also hideonzoom.py which hides the cursor during inactivity. It needs unclutter package.
+
+## Troubleshooting
+1) Check `ps aux | grep 'mousewheelzoom'` and possibly kill any other instance.
 
