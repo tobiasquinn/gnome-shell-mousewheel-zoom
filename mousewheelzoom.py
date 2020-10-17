@@ -13,6 +13,8 @@ from Xlib.display import Display
 from Xlib import X
 from Xlib.error import ConnectionClosedError
 
+from signal import signal, SIGINT
+
 buttons = [X.Button4, X.Button5]
 masks = [0, X.LockMask, X.Mod2Mask, X.LockMask | X.Mod2Mask]
 incr = 0.1
@@ -47,8 +49,17 @@ class Zoomer:
             else:
                 self._mag_settings.set_double("mag-factor", self._currentZoom)
 
+    def disable_magnifier(self):
+        self._app_settings.set_boolean("screen-magnifier-enabled", False)
+
+z = Zoomer()
+def handler(signal_received, frame):
+    print("SIGINT received, reverting to stored zoom")
+    z.disable_magnifier()
+    sys.exit(0)
+
 def main():
-    z = Zoomer()
+    signal(SIGINT, handler)
     # setup xlib
     disp = Display()
     root = disp.screen().root
