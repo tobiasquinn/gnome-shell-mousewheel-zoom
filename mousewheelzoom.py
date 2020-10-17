@@ -67,7 +67,7 @@ def main():
     for mask in masks:
         for button in buttons:
             root.grab_button(button,
-                    X.Mod4Mask | mask,
+                    X.ShiftMask | mask,
                     root,
                     False,
                     X.GrabModeAsync,
